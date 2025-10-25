@@ -14,6 +14,7 @@
 
 - **Neovim 0.7 or later** (requires the built‑in Lua runtime and job control).
 - **Mosquitto clients** (`mosquitto_sub` and `mosquitto_pub`) installed and on your `$PATH`.  On Debian/Ubuntu you can install them with:
+- **thgrass/tail.nvim** Neovim plugin for "tail -f" style following of buffers.
 
 ```sh
 sudo apt install mosquitto-clients
@@ -34,6 +35,7 @@ Add the plugin to your Neovim plugin manager.
 ```lua
 {
   "thgrass/mqtt.nvim",
+  dependencies = { "thgrass/tail.nvim" },
   cmd = { "MqttConnect", "MqttSubscribe", "MqttPublish", "MqttDisconnect" },
   config = function()
     -- optional: set defaults here
@@ -52,6 +54,7 @@ Add the plugin to your Neovim plugin manager.
 ```lua
 use {
   "thgrass/mqtt.nvim",
+  requires = { "thgrass/tail.nvim" },
   config = function()
     require("mqtt").setup({
       default_host = "localhost",
@@ -60,20 +63,6 @@ use {
   end,
   cmd = { "MqttConnect", "MqttSubscribe", "MqttPublish", "MqttDisconnect" },
 }
-```
-
-### vim‑plug
-
-```vim
-Plug 'thgrass/mqtt.nvim'
-
-" after plug#end() in Vim script
-lua << EOF
-require('mqtt').setup({
-  default_host = 'localhost',
-  default_port = 1883,
-})
-EOF
 ```
 
 ## Usage

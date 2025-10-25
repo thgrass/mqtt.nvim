@@ -123,7 +123,6 @@ local function build_cmd(client, args)
 end
 
 --- Connect to an MQTT broker.  Stores the connection parameters for later use.
--- You can omit any argument to fall back to defaults.
 function M.connect(host, port, user, pass)
   state.host = host and host ~= "" and host or M.config.default_host
   state.port = port and port ~= "" and tonumber(port) or M.config.default_port
@@ -151,6 +150,7 @@ function M.subscribe(topic)
       return buf
     end
     local newbuf = vim.api.nvim_create_buf(false, true)
+    require("tail").enable(newbuf)  -- enable tail -f style
     state.topic_buffers[topic] = newbuf
     vim.api.nvim_buf_set_option(newbuf, "bufhidden", "hide")
     vim.api.nvim_buf_set_option(newbuf, "filetype", "mqttlog")
