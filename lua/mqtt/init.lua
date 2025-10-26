@@ -63,6 +63,7 @@ local function open_console()
   -- ensure buffer
   if not state.console_bufnr or not vim.api.nvim_buf_is_valid(state.console_bufnr) then
     local bufnr = vim.api.nvim_create_buf(false, true)
+    require("tail").enable(bufnr)  -- "tail -f" style
     state.console_bufnr = bufnr
     vim.api.nvim_buf_set_option(bufnr, "bufhidden", "hide")
     vim.api.nvim_buf_set_option(bufnr, "buftype", "nofile")
