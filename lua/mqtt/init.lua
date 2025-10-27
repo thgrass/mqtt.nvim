@@ -43,7 +43,7 @@ local state = {
   topic_buffers = {},
 }
 
--- Deep merge two tables.  Used to merge user opts with defaults.
+-- Deep merge two tables: merge user opts with defaults.
 local function deep_extend(dst, src)
   for k, v in pairs(src) do
     if type(v) == "table" and type(dst[k]) == "table" then
@@ -64,6 +64,7 @@ local function open_console()
   if not state.console_bufnr or not vim.api.nvim_buf_is_valid(state.console_bufnr) then
     local bufnr = vim.api.nvim_create_buf(false, true)
     require("tail").enable(bufnr)  -- "tail -f" style
+    require("tail").timestamps_enable(bufnr)  -- with timestamps
     state.console_bufnr = bufnr
     vim.api.nvim_buf_set_option(bufnr, "bufhidden", "hide")
     vim.api.nvim_buf_set_option(bufnr, "buftype", "nofile")
@@ -152,6 +153,7 @@ function M.subscribe(topic)
     end
     local newbuf = vim.api.nvim_create_buf(false, true)
     require("tail").enable(newbuf)  -- enable tail -f style
+    require("tail").timestamps_enable(bufnr)  -- with timestamps
     state.topic_buffers[topic] = newbuf
     vim.api.nvim_buf_set_option(newbuf, "bufhidden", "hide")
     vim.api.nvim_buf_set_option(newbuf, "filetype", "mqttlog")
