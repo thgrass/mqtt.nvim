@@ -4,11 +4,10 @@
 
 ## Features
 
-- 🔌 Connect to any MQTT broker (host, port, optional username/password).
-- 📬 Subscribe to one or more topics and see live messages appended to a scratch buffer.
-- 📤 Publish arbitrary payloads to topics from within Neovim.
-- ⚡️ Asynchronous: uses Neovim’s job API to run `mosquitto_sub` and `mosquitto_pub` without blocking the UI.
-- 🧠 Small footprint: the core plugin is ~100 lines of Lua.
+- Connect to any MQTT broker (host, port, optional username/password).
+- Subscribe to one or more topics and see live messages appended to a scratch buffer.
+- Publish arbitrary payloads to topics from within Neovim.
+- Asynchronous: uses Neovim’s job API to run `mosquitto_sub` and `mosquitto_pub` without blocking the UI.
 
 ## Requirements
 
@@ -127,8 +126,6 @@ Disconnect:
 | `use_console` | `true` | If `true`, all incoming messages are also appended to a persistent console buffer.  Toggle it with `:MqttConsole`. |
 | `console_position` | `"bottom"` | Where to open the console window (`"bottom"` for a horizontal split or `"right"` for a vertical split). |
 
-You can also override the names of the commands (e.g. `:MqttSubscribe`) by setting the `command_names` table; see the code for details.
-
 ## How it works
 
 Under the hood, the plugin shells out to `mosquitto_sub` for subscriptions and `mosquitto_pub` for publishing.  Neovim’s job control captures the standard output of `mosquitto_sub` and appends each line to a scratch buffer in real time.  The asynchronous job is automatically cleaned up when you call `:MqttDisconnect` or when you close Neovim.
@@ -143,4 +140,4 @@ Because this approach relies on external executables, you can easily swap them f
 
 ## License
 
-This project is licensed under the MIT License.  See [LICENSE](LICENSE) for details.
+This project is licensed under the MIT License.  See [LICENSE](LICENSE) for details. Copyright 2025 T. Grassmann 
